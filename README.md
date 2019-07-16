@@ -89,7 +89,7 @@ diskmodel_done();
 
 Each disk model implements a unified set of functions that specify the quantities that each model provides.
 
-A complete description of the interface is given in a [docs/interface.md](docs/interface.md).
+A complete description of the interface is given in [doc/interface.md](doc/interface.md).
 
 
 ## Citing
