@@ -1,36 +1,37 @@
-﻿
 # Accretion Disk Radial Structure Models
 
-A collection of radial structure models of various accretion disk solutions, i.e. the radial dependence of their structural and thermodynamic quantities.
+A collection of radial structure models of various accretion disk solutions, i.e. the radial dependence of their geometrical, physical and thermodynamic quantities.
 
 ## Models
 
 The following models are included:
 
 * [Novikov-Thorne thin disk model](models/nt) (in models/nt)
-* [Sadowski slim disk model](models/slimdisk) (in models/slimdisk)
+* [Sadowski polytropic slim disk model](models/slimdisk) (in models/slimdisk)
 
-See the model's README files for information about each model.
+See the model's README files for more information and usage instructions related to each model.
 
 ## Installation
 
 To download and compile the model collection use
-
-    git clone --recursive https://github.com/mbursa/disk-models.git
-    cd disk-models
-    make
+```bash
+git clone --recursive https://github.com/mbursa/disk-models.git
+cd disk-models
+make
+```
 
 The recursive option makes sure all submodules are included too (see bellow). 
 
 Individual models can be compiled separately by running `make` in the directory of a particular model or by running
-    
-    make -C models/<model_name>
-    
+```bash    
+make -C models/<model_name>
+```    
+
 ### Dependencies
 Some of the models may have external dependencies, which are handled using [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that are located under `libs` subfolder. Submodules are downloaded and initialized automatically when `git clone --recurse-submodules` (for version >=2.13 of git) or `git clone --recursive`  (for git versions >1.6.5 and <2.13) is used to clone the repository. 
 
 For already cloned repos, or older git versions (<1.6), use the following to initialize submodules:
-```
+```bash
 git clone https://github.com/mbursa/disk-models.git
 cd disk-models
 git submodule update --init --recursive
@@ -84,24 +85,26 @@ diskmodel_done();
 
 ```
 
-### Interface
+## Interface
 <!--
 A complete description of the interface is given in a separate document.
 -->
 Each disk model implements the following set of functions that together define a common interface:
 
-### `int diskmodel_init(char *modellib, double M, double a, char *params)`
+#### `int diskmodel_init(char *modellib, double M, double a, char *params)`
 Model initialization.  
 Loads the shared library, links it into the program and calls its initialization routine.
-**Parameters**  
+
+**Parameters**:  
 * **modellib**: filesystem path to the `.so` library (string) 
 * **M**: mass of BH [Msun] 
 * **a**: spin of BH [0..1] 
 * **params**: parametres that are passed to the library initialization function (string in key1=value1,key2=value2,... format)
-**Return value**
+
+**Return value**:  
 Return the result of the library's initialization function or -1 of the library could not loaded or be initialized. 
 
-### `void diskmodel_done()`
+#### `void diskmodel_done()`
 External disk model finitialization.  
 Frees memory and unlinks the libraray. 
 
@@ -214,8 +217,13 @@ The function prints the profile of all quantities as a function of radius from r
 If you have used this software in your work, please acknowledge it by citing its ASCL record:  
 [ascl:XXXX.XXX](XXXX.XXX). See their [citing guidelines](https://ascl.net/wordpress/about-ascl/citing-ascl-code-entries/).
 
+In addition, you should also reference the papers related to the model you use. See the README files of the individual models.
+
+## Contributing
+
+I will be happy to include more models if I am given a C implementation of the quantities that are part of the interface.
 
 ## License
 
-Disk models are released under the MIT License.
+The code is released under the MIT License.
 
