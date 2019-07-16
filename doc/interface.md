@@ -6,6 +6,8 @@ Each disk model implements a set of functions that defines the common interface.
 
 **Note 2**: If possible, the function takes arguments and return results in dimensionless units. E.g. radius _R_ in units of gravitational radius `r_g = GM/c^2`, velocity in units of the speed of light, etc.
 
+---
+
 #### `int diskmodel_init(char *modellib, double M, double a, char *params)`
 Model initialization.  
 Loads the shared library, links it into the program and calls its initialization routine passing the paramters of the model.
@@ -18,6 +20,8 @@ Loads the shared library, links it into the program and calls its initialization
 
 **Return value**:  
 Returns the result of the library's initialization function (typically 0 on success) or -1 of the library could not loaded or be initialized. 
+
+---
 
 #### `void diskmodel_done()`
 Model finitialization.  
@@ -35,12 +39,16 @@ Model name.
 Returns a pointer to a string with the model's name. 
 -->
 
+---
+
 #### `double diskmodel_r_min()`
 Minimal radius of the disk (disk inner edge).
 Gives minimal value for radius for which the functions provide valid results. E.g. for Novikov-Thorne disk, this corresponds to the radius of the marginally stable orbit (ISCO).
 
 **Return value**:  
 Radius of the disk inner edge [GM/c2] 
+
+---
 
 #### `double diskmodel_flux(double R)`
 Local flux from one side of the disk.
@@ -52,6 +60,8 @@ Gives the local radiative flux from the surface of the disk at equatorial radius
 **Return value**:  
 Total outgoing flux from unit area on one side of the disk [erg cm-2 s-1]. 
 
+---
+
 #### `double diskmodel_lumi()`
 Total disk luminosity.
 Luminosity is obtained by integrating local flux over the surface area of the disk (both sides) going into the whole sky (4pi solid angle). The integration makes a proper transformation of the flux from local to coordinate frame, but it ignores other relativistic effects, e.g. light bending.
@@ -61,12 +71,16 @@ L = 2 * 2\pi \int F(r) (-U_t) r dr
 **Return value**:  
 Total disk luminosity from both surfaces [erg s-1] 
 
+---
+
 #### `double diskmodel_mdot()`
 Mass accretion rate.
 Returns mass accretion rate in Eddington units of (Mdot_Edd*M). See [SIM5](https://github.com/mbursa/sim5) for the definition of Eddington mass accretion rate _Mdot_Edd_.
 
 **Return value**:  
 Mass accretion rate in Eddington units. 
+
+---
 
 #### `double diskmodel_sigma(double R)`
 Column mass density.
@@ -78,6 +92,7 @@ Returns a column mass density of the fluid, i.e. the fluid density vertically in
 **Return value**:  
 Midplane column density in [g/cm2]. 
 
+---
 
 #### `double diskmodel_l(double R)`
 Specific angular momentum.
@@ -89,6 +104,8 @@ Returns specific angular momentum of the fluid at a given radius.
 **Return value**:  
 Specific angular momentum [in geometrical units]. 
 
+---
+
 #### `double diskmodel_vr(double R)`
 Radial velocity.
 Returns bulk radial velocity of the fluid at given radius as measured by an observer in the co-rotating frame.
@@ -98,6 +115,8 @@ Returns bulk radial velocity of the fluid at given radius as measured by an obse
 
 **Return value**:  
 Radial velocity in [speed_of_light]. Positive value means outflow, negative value means inflow.
+
+---
 
 #### `double diskmodel_h(double R)`
 Surface height.
@@ -109,6 +128,8 @@ Returns the scale-height of the surface of the disk above midplane at given radi
 **Return value**:  
 Scale-height [r_g]. Note: This should represent the location of the photosphere, where the effective optical depth tau ~= 1.
 
+---
+
 #### `double diskmodel_dhdr(double R)`
 Derivative of surface height.
 Returns surface profile as a derivative $dH/dR$ of its height above midplane at given radius.
@@ -118,6 +139,8 @@ Returns surface profile as a derivative $dH/dR$ of its height above midplane at 
 
 **Return value**:  
 Derivative of surface height. 
+
+---
 
 #### `double diskmodel_eval(double r, int quantity)`
 Other quantity evaluation.
@@ -130,12 +153,16 @@ Returns the value of a given quantity. The disk model may provide more quantitie
 **Return value**:  
 The value of the requested quantity. 
 
+---
+
 #### `void diskmodel_params(FILE* output)`
 Prints model parameters.
 Writes down the parameters of the model to the given stream.
 
- **Parameters**:  
+**Parameters**:  
 * **stream**: stream to write to 
+
+---
 
 #### `void diskmodel_dump(FILE* filename)`
 Prints the disk structure as a function of radius.
