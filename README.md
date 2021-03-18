@@ -94,8 +94,10 @@ A complete description of the interface is given in [doc/interface.md](doc/inter
 
 ## Citing
 
-If you have used this software in your work, please acknowledge it by citing its ASCL record:  
-[ascl:XXXX.XXX](XXXX.XXX). See their [citing guidelines](https://ascl.net/wordpress/about-ascl/citing-ascl-code-entries/).
+If you have used this software in your work, please acknowledge it by citing its ASCL record 
+[ascl:2002.022](https://ascl.net/2002.022). The BibTeX citation record can be obtained from 
+[ADS](https://ui.adsabs.harvard.edu/abs/2020ascl.soft02022B/exportcitation). 
+See ASCL [citing guidelines](https://ascl.net/wordpress/about-ascl/citing-ascl-code-entries/).
 
 In addition, you should also reference the papers related to the model you use. See the README files of the individual models.
 
