@@ -1,0 +1,3 @@
+disk-slim-test
+data/*
+!data/slimdisk-polytropic.xz
