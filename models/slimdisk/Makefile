@@ -1,6 +1,6 @@
 CC = gcc
 
-SIM5LIB = ../libs/sim5
+SIM5LIB = ../../libs/sim5
 
 CFLAGS = -L$(SIM5LIB)/src -I$(SIM5LIB)/src -O3 -rdynamic -Wall -Wno-unknown-pragmas -fgnu89-inline
 LFLAGS = $(CFLAGS) -ldl -lm

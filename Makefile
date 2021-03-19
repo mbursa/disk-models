@@ -8,12 +8,11 @@ all: models
 
 # buid individual models
 models:
-	for model in `ls -d models/*/`; do \
-	    echo "models/$${model%%/}/Makefile"; \
-	    if [ -f "models/$${model%%/}/Makefile" ]; then \
+	@for model in `ls -d models/*/`; do \
+	    if [ -f "$${model%%/}/Makefile" ]; then \
 	        echo "=== Building $${model%%/} model"; \
-	        $(MAKE) -C models/$${model%%/}; \
-	        echo "=== done"; \
+	        $(MAKE) -C $${model%%/}; \
+	        echo "=== done\n"; \
 	    fi; \
 	done
 #	@mv */*.so .
