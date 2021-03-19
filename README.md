@@ -71,6 +71,22 @@ dlclose(handle);
 
 A complete example of how to dynamicly load and use a disk model library in a program is provided in [examples/runtime-loading](examples/runtime-loading).
 
+
+### Using in Python
+
+The compiled shared object libraries with disk models can be also used in Python. In the root folder, there is a `disk_model.py` wrapper that handles loading the dynamic library and makes an interface to the library methods. A basic pattern of calling disk models in Python using `disk_model.py` is
+
+```Python
+root_path = 'path/to/disk_model.py'
+sys.path.append(root_path)
+from disk_model import DiskModel
+model = DiskModel(root_path+'/models/nt/disk-nt.so', 10.0, 0.0, 'mdot=0.1')
+```
+
+A complete example of how to call disk model methods in Python is provided in [examples/python](examples/python).
+
+
+
 ### Loading with SIM5 library
 
 [SIM5](https://github.com/mbursa/sim5) library contains a ready-to-use [interface for loading the disk models](https://github.com/mbursa/sim5/blob/public/doc/sim5lib-doc.md#sim5disk). It essentially uses  the approach described above and provides a C interface to access the functions of a disk model library that takes care of implementing the dynamic linking. A brief example how it can be used:
