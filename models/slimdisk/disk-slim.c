@@ -126,7 +126,7 @@ double diskmodel_lumi()
     const float disk_rmax = 1e5;
 
     // integrate disk luminosity from r_ms to disk_rmax rg
-    // - the integration uses 'logarithmic rule': L = \int f(x) dx \int f(x)*x d(log(x))
+    // - the integration uses 'logarithmic rule': L = \int f(x) dx = \int f(x)*x d(log(x))
     // - it also makes conversion from local to coordinate flux
     double func_luminosity(double log_r)
     {
@@ -144,7 +144,7 @@ double diskmodel_lumi()
         return 2.*M_PI*r*2.0*(-U_t)*F * r;
     }
 
-    double L = integrate_simpson(func_luminosity, log(r_bh(bh_spin)+1e-2), log(disk_rmax), 1e-5);
+    double L = integrate_simpson(func_luminosity, log(r_bh(bh_spin)+1e-3), log(disk_rmax), 1e-5);
 
     // fix units to erg/s
     L *= sqr(bh_mass*grav_radius);
