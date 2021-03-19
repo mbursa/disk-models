@@ -41,7 +41,7 @@ int diskmodel_init(double M, double a, char *params)
 
     // read path parameter or use default value
     if ((value=key_value_get(params,"path")) != NULL) {
-        strncpy(path, value, sizeof(path));
+        strncpy(path, value, sizeof(path)-1);
     }
     
     // read alpha parameter or use default value
@@ -192,12 +192,12 @@ double diskmodel_l(double r)
 // result is dimensionless (for a unit mass)
 {
 // original radial model:
-//    r = max(r, r_min);
+//    r = fmax(r, r_min);
 //    if (r>r_max) return dsi_eval(r_max,DSI_COL_ELL)/(DSI_MASS*grav_radius_cgs)*pow(r/r_max,0.5);
 //    return dsi_eval(r,DSI_COL_ELL)/(DSI_MASS*grav_radius_cgs);
 
 // polytropic model
-    r = max(r, r_min+1e-3); // for r<r_min assume that ell is constant
+    r = fmax(r, r_min+1e-3); // for r<r_min assume that ell is constant
     if (r<r_max)
         return dsi_eval(r,DSI_COL_ELL);
     else
@@ -219,10 +219,10 @@ double diskmodel_vr(double r)
         double r2 = 1.1*r_min;
         double v1 = dsi_eval(r1,DSI_COL_VR);
         double v2 = dsi_eval(r2,DSI_COL_VR);
-        return -min(0.9999, qspline(r_h, 0.99, 2.0, r1, v1, (v2-v1)/(r2-r1), r));
+        return -fmin(0.9999, qspline(r_h, 0.99, 2.0, r1, v1, (v2-v1)/(r2-r1), r));
     }
     if (r>r_max) return -dsi_eval(r_max,DSI_COL_VR);  // keep the last value (should be sufficiently low)
-    return -min(dsi_eval(r,DSI_COL_VR), 0.9999);
+    return -fmin(dsi_eval(r,DSI_COL_VR), 0.9999);
 }
 
 
@@ -274,19 +274,19 @@ double diskmodel_dhdr(double r)
         //return (H2-H1)/(r2-r1);
     }
 
-    r1 = max(0.98*r, r_h);
+    r1 = fmax(0.98*r, r_h);
     r2 = 1.02*r;
     H1 = diskmodel_h(r1);
     H2 = diskmodel_h(r2);
     double D1 = (H2-H1)/(r2-r1);
 
-    r1 = max(0.94*r, r_h);
+    r1 = fmax(0.94*r, r_h);
     r2 = 1.06*r;
     H1 = diskmodel_h(r1);
     H2 = diskmodel_h(r2);
     double D2 = (H2-H1)/(r2-r1);
 
-    r1 = max(0.90*r, r_h);
+    r1 = fmax(0.90*r, r_h);
     r2 = 1.10*r;
     H1 = diskmodel_h(r1);
     H2 = diskmodel_h(r2);

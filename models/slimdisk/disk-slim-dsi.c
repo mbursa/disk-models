@@ -307,8 +307,8 @@ int dsi_init(char* path, double mdot, double spin, double alpha, double *rmin, d
                 }
                 debug("rmin = %.3f  rmax = %.3f [rg]\n", values[0][0], values[0][nlines-1]);
 
-                *rmin = min(*rmin, values[0][0]);
-                *rmax = min(*rmax, values[0][nlines-1]-DSI_EPS);
+                *rmin = fmin(*rmin, values[0][0]);
+                *rmax = fmin(*rmax, values[0][nlines-1]-DSI_EPS);
 
                 // setup interpolation objects for each quantity
                 debug("building interpolators\n");
@@ -394,7 +394,7 @@ int dsi_init(char* path, double mdot, double spin, double alpha, double *rmin, d
         // fill the mdot-interpolated data
         for (j=0; j<DSI_NRAD; j++) {
             double val = (1.-w)*sim5_interp_eval(&interp[i][0][0][0], R[j]) + w*sim5_interp_eval(&interp[i][1][0][0], R[j]);
-            if (i == DSI_COL_VR) val = min(val, 0.9999);
+            if (i == DSI_COL_VR) val = fmin(val, 0.9999);
             sim5_interp_data_push(&tmp_interp, R[j], val);
         }
         // free the two mdot interpolators
