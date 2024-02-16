@@ -5,6 +5,9 @@ all: models
 
 .PHONY: models examples clean
 
+init:
+	git submodule init
+	git submodule update
 
 # buid individual models
 models:
